@@ -1,7 +1,7 @@
 package main
 
 import scala.io._
-import scala.util.Random._
+import scala.util.Random
 
 object Main extends App {
 
@@ -9,8 +9,10 @@ object Main extends App {
 
   // println(DataAnalysis.sumByAccountId(transactions).toMap)
   // println(GetData.randomTransactions(100))
-  println(GetData.randomAccount)
-  println(GetData.randomDay)
+  // println(GetData.randomAccount)
+  // println(GetData.randomDay)
+  // println(GetData.randomCategory)
+  println(GetData.randomAmount)
 }
 
 case class Transaction(
@@ -42,13 +44,20 @@ object GetData {
     trId
   }
 
-  val randomAccount = Random.between(20, 50) (n => s"A${n+1}")
+  val randomAccount = s"A${Random.between(20, 50)}"
 
+  val randomDay = Random.between(1, 50)
 
-  def randomDay = {
-    List.tabulate(Random.between(1, 50)) (n => n + 1)
+  def randomCategory = {
+    val letter = Random.alphanumeric.filter(_.isLetter).head.toUpper
+    s"${letter}${letter}"
   }
 
+  def randomAmount = {
+    val unit = Random.between(100, 999)
+    val decimals = Random.between(0, 99)
+    s"$unit.$decimals".toDouble
+  }
 }
 
 object DataAnalysis {
