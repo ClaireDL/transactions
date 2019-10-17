@@ -1,11 +1,13 @@
 package com.clairedl.scala
 
-class TransactionAnalyser(val data: List[Transaction]) {
+case class TransactionAnalyser() {
 
-  def sumByAccountId() =
+  def sumByAccountId(data: List[Transaction]): String = {
     data
       .groupBy(tr => tr.accountId)
       .mapValues { trs =>
         trs.map(tr => tr.amount).sum
       }
+      .mkString("\n")
+    }
 }
