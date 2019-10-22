@@ -2,7 +2,6 @@ package com.clairedl.scala
 
 import scala.io._
 import scala.util.Random
-import scala.math
 
 trait TransactionLoader {
   def load(): List[Transaction]
@@ -51,14 +50,9 @@ class RandomTransactionLoader()
   }
 
   protected def randomAmount = {
-    val number = Random.between(5.00, 999.99)
-    (math rint number * 100) / 100
+    val unit = Random.between(10, 999)
+    val decimals = Random.between(0, 99)
+    s"$unit.$decimals".toDouble
   }
-
-  // protected def randomAmount = {
-  //   val unit = Random.between(10, 999)
-  //   val decimals = Random.between(0, 99)
-  //   s"$unit.$decimals".toDouble
-  // }
 
 }

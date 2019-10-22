@@ -1,7 +1,5 @@
 package com.clairedl.scala
 
-import scala.math.BigDecimal.RoundingMode
-
 trait TransactionAnalyser {
 
   def analyse(): String
@@ -14,9 +12,7 @@ class sumByAccountId(data: List[Transaction])
       data
         .groupBy(tr => tr.accountId)
         .mapValues { trs =>
-          trs.map(tr => tr.amount)
-            .sum
-            .setScale(2, RoundingMode.HALF_UP)
+          trs.map(tr => tr.amount).sum
         }
         .mkString("\n")
       }

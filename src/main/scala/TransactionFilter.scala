@@ -28,10 +28,10 @@ class FilterCategory(val toFilter: List[Transaction], val cat: String)
     }
 }
 
-class NoFilter(val toFilter: List[Transaction])
+class FilterAccountId(val toFilter: List[Transaction], val accId: String)
   extends FilterSelector {
 
     def filter(): List[Transaction] = {
-      toFilter
+      toFilter.filter(_.accountId == accId)
     }
 }
