@@ -1,13 +1,23 @@
 package com.clairedl.scala
 
-case class TransactionAnalyser() {
+import scala.math.BigDecimal.RoundingMode
 
-  def sumByAccountId(data: List[Transaction]): String = {
-    data
-      .groupBy(tr => tr.accountId)
-      .mapValues { trs =>
-        trs.map(tr => tr.amount).sum
+trait TransactionAnalyser {
+
+  def analyse(): String
+}
+
+class sumByAccountId(data: List[Transaction])
+  extends TransactionAnalyser {
+
+    def analyse(): String = {
+      data
+        .groupBy(tr => tr.accountId)
+        .mapValues { trs =>
+          trs.map(tr => tr.amount)
+            .sum
+            .setScale(2, RoundingMode.HALF_UP)
+        }
+        .mkString("\n")
       }
-      .mkString("\n")
-    }
 }
