@@ -1,0 +1,14 @@
+trait SStream[+A] {
+    def head: A
+    def tail: () => SStream[A]
+  }
+  case class SVal[+A](head: A, tail: () => SStream[A]) extends SStream[A]
+  case object SNil extends SStream[Nothing] {
+    def head: Nothing = throw new UnsupportedOperationException
+    def tail: () => SStream[Nothing] = throw new UnsupportedOperationException
+  }
+
+  def always2(): SStream[Int] = SVal(2, always2)
+
+  val a = always2().head
+  val b = always2().tail().head

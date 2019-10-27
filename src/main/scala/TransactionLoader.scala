@@ -7,35 +7,35 @@ trait TransactionLoader {
   def load(): List[Transaction]
 }
 
-class FileTransactionLoader(val filepath: String)
+class FileTransactionLoader(val filePath: String)
   extends TransactionLoader {
 
-    def load(): List[Transaction] = {
-      Source
-        .fromFile(filepath)
-        .getLines()
-        .drop(1)
-        .map { line =>
-          val split = line.split(",")
-          Transaction(split(0), split(1), split(2).toInt, split(3), split(4).toDouble)
-        }
-      .toList
-    }
+  def load(): List[Transaction] = {
+    Source
+      .fromFile(filePath)
+      .getLines()
+      .drop(1)
+      .map { line =>
+        val split = line.split(",")
+        Transaction(split(0), split(1), split(2).toInt, split(3), split(4).toDouble)
+      }
+    .toList
+  }
 }
 
 class RandomTransactionLoader()
   extends TransactionLoader {
 
-    def load(): List[Transaction] = {
-      List.tabulate(Random.between(50, 500)) { i =>
-        Transaction(
-          s"A${String.format("%04d", i + 1)}",
-          randomAccount,
-          randomDay,
-          randomCategory,
-          randomAmount
-        )
-      }
+  def load(): List[Transaction] = {
+    List.tabulate(Random.between(50, 500)) { i =>
+      Transaction(
+        s"A${String.format("%04d", i + 1)}",
+        randomAccount,
+        randomDay,
+        randomCategory,
+        randomAmount
+      )
+    }
   }
 
   protected def randomAccount = s"A${Random.between(20, 50)}"
@@ -54,5 +54,4 @@ class RandomTransactionLoader()
     val decimals = Random.between(0, 99)
     s"$unit.$decimals".toDouble
   }
-
 }
