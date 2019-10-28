@@ -4,6 +4,10 @@ trait TransactionsFilter {
   def filter(transactions: List[Transaction]): List[Transaction]
 }
 
+class NoFilter() extends TransactionsFilter {
+  def filter(transactions: List[Transaction]): List[Transaction] = transactions
+}
+
 class LowTransactionsFilter(threshold: Double) extends TransactionsFilter {
   def filter(transactions: List[Transaction]): List[Transaction] = {
     transactions.filter(_.amount < threshold)
