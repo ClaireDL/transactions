@@ -1,39 +1,31 @@
 package com.clairedl.scala
 
-trait TransactionAnalyser {
-  def sumByAccountId(): Map[String, Double]
-  def averageByAccountId(): Map[String, Double]
-}
+class SumByAccountId(loader: TransactionLoader, filter: TransactionsFilter) {
 
-class SumByAccountId(loader: TransactionLoader, filter: TransactionsFilter)
-  extends TransactionAnalyser {
-
-  def sumByAccountId(): Map[String, Double] = {
+  def analyse(): Map[String, Double] = {
     val transactions = loader.load()
     val filtered = filter.filter(transactions)
 
     filtered
-      .groupBy(_.accountId)   // Same as .groupBy(tr => tr.accountId)
+      .groupBy(_.accountId) // Same as .groupBy(tr => tr.accountId)
       .mapValues { trs =>
         trs.map(tr => tr.amount)
           .sum
       }.toMap
   }
+}
 
-class AverageByAccountId(loader: TransactionLoader, filter: TransactionsFilter)
-  extends TransactionAnalyser {
+class AverageByAccountId(loader: TransactionLoader, filter: TransactionsFilter) {
 
-  def averageByAccountId(): Map[String, Double] = {
+  def analyse(): Map[String, Double] = {
     val transactions = loader.load()
     val filtered = filter.filter(transactions)
-
-    val totalAccountId = filtered.count(x => true)
 
     filtered
       .groupBy(_.accountId)
       .mapValues { trs =>
-        trs.map(tr => tr.amount / totalAccountId)
-          .sum
-      }.toMap
+      trs.map(tr => tr.amount / trs.size)
+        .sum
+    }.toMap
   }
 }
