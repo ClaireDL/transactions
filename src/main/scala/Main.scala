@@ -2,12 +2,12 @@ package com.clairedl.scala
 
 object Main extends App {
   val loader = new FileTransactionLoader("transactions.txt")
-  val filter = new LowTransactionsFilter(400)
-  val sum = new SumByAccountId(loader, filter).analyse()
+//  val filter = new LowTransactionsFilter(400)
+  val filter = new NoFilter()
 
-  val average = new AverageByAccountId(loader, filter).analyse()
-
-  println(sum)
-  println(average)
-
+  val data = new DataAnalyser(loader, filter)
+  val averageByAccountId = data.averageByAccountId()
+  println(averageByAccountId.mkString("\n"))
+//  val averageByAccountIdByDay = data.averageByAccountIdByDay()
+//  println(averageByAccountIdByDay.mkString("\n"))
 }

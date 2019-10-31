@@ -7,8 +7,7 @@ trait TransactionLoader {
   def load(): List[Transaction]
 }
 
-class FileTransactionLoader(val filePath: String)
-  extends TransactionLoader {
+class FileTransactionLoader(val filePath: String) extends TransactionLoader {
 
   def load(): List[Transaction] = {
     Source
@@ -23,8 +22,7 @@ class FileTransactionLoader(val filePath: String)
   }
 }
 
-class RandomTransactionLoader()
-  extends TransactionLoader {
+class RandomTransactionLoader() extends TransactionLoader {
 
   def load(): List[Transaction] = {
     List.tabulate(Random.between(50, 500)) { i =>
