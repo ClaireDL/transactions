@@ -22,5 +22,4 @@ object Main extends App {
   val buildTransaction = default.build()
 
   println(buildTransaction.sumByAccountId().mkString("\n"))
-
 }
