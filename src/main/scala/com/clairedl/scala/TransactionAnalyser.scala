@@ -2,12 +2,12 @@ package com.clairedl.scala
 
 import org.slf4j.LoggerFactory
 
-class DataAnalyser(loader: TransactionLoader, filter: TransactionsFilter) {
+class TransactionAnalyser(loader: TransactionLoader, filter: TransactionsFilter) {
 
-  val transactions = loader.load()
-  val filtered = filter.filter(transactions)
+  private val transactions = loader.load()
+  private val filtered = filter.filter(transactions)
 
-  val logger = LoggerFactory.getLogger(getClass.getSimpleName)
+  private val logger = LoggerFactory.getLogger(getClass.getSimpleName)
   logger.trace("Transactions loaded and filtered")
 
   def groupedByAccountId: Map[String, List[Transaction]] =
@@ -17,9 +17,9 @@ class DataAnalyser(loader: TransactionLoader, filter: TransactionsFilter) {
     logger.info("Starting analysis")
     groupedByAccountId
       .mapValues { trs =>
-        Math.round((trs.map(tr =>
+        Math.round(trs.map(tr =>
           tr.amount)
-          .sum) * 100.00) / 100.00
+          .sum * 100.00) / 100.00
       }
       .toMap
   }
@@ -28,9 +28,9 @@ class DataAnalyser(loader: TransactionLoader, filter: TransactionsFilter) {
     logger.info("Starting analysis")
     groupedByAccountId
       .mapValues { trs =>
-        Math.round((trs.map(tr =>
+        Math.round(trs.map(tr =>
           tr.amount / trs.size)
-          .sum) * 100.00) / 100.00
+          .sum * 100.00) / 100.00
       }
       .toMap
   }
@@ -40,9 +40,9 @@ class DataAnalyser(loader: TransactionLoader, filter: TransactionsFilter) {
     filtered
       .groupBy(tr => (tr.accountId, tr.day))
       .mapValues { trs =>
-        Math.round((trs.map(tr =>
+        Math.round(trs.map(tr =>
           tr.amount / trs.size)
-          .sum) * 100.00) / 100.00
+          .sum * 100.00) / 100.00
       }
       .toMap
   }

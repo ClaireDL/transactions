@@ -36,18 +36,18 @@ class RandomTransactionLoader() extends TransactionLoader {
     }
   }
 
-  protected def randomAccount = s"A${Random.between(20, 50)}"
+  private def randomAccount = s"A${Random.between(20, 50)}"
 
-  protected def randomDay = Random.between(1, 50)
+  private def randomDay = Random.between(1, 50)
 
-  protected def randomCategory = {
+  private def randomCategory = {
     val categories = "AA" :: "BB" :: "CC" :: "DD" :: "EE" :: "FF" :: Nil
     categories(Random.nextInt(categories.length))
     // val letter = Random.alphanumeric.filter(_.isLetter).head.toUpper
     // s"$letter$letter"
   }
 
-  protected def randomAmount = {
+  private def randomAmount = {
     val unit = Random.between(10, 999)
     val decimals = Random.between(0, 99)
     s"$unit.$decimals".toDouble
