@@ -5,12 +5,12 @@ abstract class TransactionAnalyserBuilder {
   protected def filter: TransactionsFilter
 }
 
+/**
+  * Loads random transactions
+  * Applies specific filter
+  */
 class DefaultBuilder extends TransactionAnalyserBuilder {
-  /**
-    * Loads random transactions
-    * Applies specific filter
-    */
-  protected def loader: TransactionLoader = new RandomTransactionLoader
+  protected def loader: RandomTransactionLoader = new RandomTransactionLoader
 
   protected def filter: TransactionsFilter = new NoFilter
 
