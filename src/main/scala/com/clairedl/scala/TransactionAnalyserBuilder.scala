@@ -15,6 +15,6 @@ class DefaultBuilder extends TransactionAnalyserBuilder {
   protected def filter: TransactionsFilter = new NoFilter
 
   def build(): TransactionAnalyser = {
-   new TransactionAnalyser(loader, filter)
+    new TransactionAnalyser(loader, filter)
   }
 }

@@ -6,7 +6,7 @@ case class Transaction(
     day: Int,
     category: String,
     amount: Double
-    ) {
+) {
 
   override def toString(): String = {
     s"\nTransaction $id: account $accountId, day: $day, " +
