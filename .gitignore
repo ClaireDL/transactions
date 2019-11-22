@@ -1,0 +1,8 @@
+target
+*.class
+
+.metals/
+.bloop/
+project/
+transactions.txt
+.idea
