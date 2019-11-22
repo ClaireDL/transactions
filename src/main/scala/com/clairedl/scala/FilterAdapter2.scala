@@ -2,15 +2,15 @@ package com.clairedl.scala
 
 import com.colofabrix.scala.designpatterns.filters._
 
-class FilterAdapter2 extends TransactionsFilter {
+class FilterAdapter2(loader: TransactionLoader, condition: Transaction => Boolean)
+    extends TransactionsFilter {
 
-  var genericTransactionListFilter: GenericTransactionListFilter = _
+  private val adaptee = new GenericTransactionListFilter(
+    loader.load(),
+    condition
+  )
 
-  def filter(transactions: List[Transaction]): List[Transaction] = {
-    genericTransactionListFilter.getFilteredList()
-  }
+  def filter(transactions: List[Transaction]): List[Transaction] =
+    adaptee.getFilteredList()
 
-  def getFilterType(name: String): TransactionsFilter = {
-    genericTransactionListFilter = new GenericTransactionListFilter()
-  }
 }

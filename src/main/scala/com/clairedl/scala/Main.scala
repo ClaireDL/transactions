@@ -11,9 +11,14 @@ object Main extends App {
 
   // another type of filtering, using the Adapter pattern
   val filter = new DayFilterAdapter(3)
+  val filter2 = new FilterAdapter3(
+    loader,
+    GenericTransactionListFilter
+      .dayFilter(loader.load(), 4)
+  )
 
   // creates an object with the transactions ready for analysis
-  val data = new TransactionAnalyser(loader, filter)
+  val data = new TransactionAnalyser(loader, filter2)
 
   // logging
   val logger = LoggerFactory.getLogger(getClass.getSimpleName)
