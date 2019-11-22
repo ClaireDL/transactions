@@ -1,8 +1,14 @@
+<<<<<<< HEAD
 target
 *.class
 
 .metals/
 .bloop/
+=======
+target/
+.metals/
+build.sbt
+>>>>>>> 65d0e7bf408227b03e20dd3f1a321aff8bcf5ae4
 project/
 transactions.txt
 .idea
