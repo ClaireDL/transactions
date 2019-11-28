@@ -11,11 +11,10 @@ object Main extends App {
 
   // another type of filtering, using the Adapter pattern
   val filter = new DayFilterAdapter(3)
-  val filter2 = new FilterAdapter3(
-    loader,
-    GenericTransactionListFilter
-      .dayFilter(loader.load(), 4)
-  )
+
+  // another type of filtering, using a generic Adapter pattern for GenericTransactionListFilter
+  val filter2 = new GenericFilterAdapter(GenericTransactionListFilter.dayFilter(List(), 5))
+
 
   // creates an object with the transactions ready for analysis
   val data = new TransactionAnalyser(loader, filter2)
