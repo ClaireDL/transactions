@@ -4,7 +4,7 @@ import com.typesafe.config.{Config, ConfigFactory}
 
 class TransactionConfig(
     val transactionSettings: String = "file",
-    val filterSettings: String,
+    val filterSettings: String = "NoFilter",
     val transactionSettingsConf: String = "transactionSettings.conf",
     val filterSettingsConf: String = "filterSettings.conf"
 ) {
@@ -27,4 +27,5 @@ class TransactionConfig(
       case "AccountIdTransactionsFilter" =>new AccountIdTransactionsFilter(filterType.getString("accountId"))
     }
   }
+
 }
