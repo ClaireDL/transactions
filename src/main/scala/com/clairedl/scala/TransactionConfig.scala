@@ -2,10 +2,15 @@ package com.clairedl.scala
 
 import com.typesafe.config.{Config, ConfigFactory}
 
-class TransactionConfig(val transactionSettings: String = "file", val filterSettings: String) {
+class TransactionConfig(
+    val transactionSettings: String = "file",
+    val filterSettings: String,
+    val transactionSettingsConf: String = "transactionSettings.conf",
+    val filterSettingsConf: String = "filterSettings.conf"
+) {
 
   def loader: TransactionLoader = {
-    val settings: Config = ConfigFactory.load("transactionSettings.conf").getConfig(transactionSettings)
+    val settings: Config = ConfigFactory.load(transactionSettingsConf).getConfig(transactionSettings)
     transactionSettings match {
       case "file" => new FileTransactionLoader(settings.getString("name"))
       case "random" => new RandomTransactionLoader()
@@ -13,7 +18,7 @@ class TransactionConfig(val transactionSettings: String = "file", val filterSett
   }
 
   def filter: TransactionsFilter = {
-    val filterType: Config = ConfigFactory.load("filterSettings.conf").getConfig(filterSettings)
+    val filterType: Config = ConfigFactory.load(filterSettingsConf).getConfig(filterSettings)
     filterSettings match {
       case "NoFilter" => new NoFilter()
       case "LowTransactionsFilter" => new LowTransactionsFilter(filterType.getInt("threshold"))
