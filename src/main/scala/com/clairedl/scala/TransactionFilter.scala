@@ -8,14 +8,14 @@ class NoFilter() extends TransactionsFilter {
   def filter(transactions: List[Transaction]): List[Transaction] = transactions
 }
 
-class LowTransactionsFilter(threshold: Double) extends TransactionsFilter {
+class LowTransactionsFilter(amount: Double) extends TransactionsFilter {
   def filter(transactions: List[Transaction]): List[Transaction] =
-    transactions.filter(_.amount < threshold)
+    transactions.filter(_.amount < amount)
 }
 
-class HighTransactionsFilter(val threshold: Double) extends TransactionsFilter {
+class HighTransactionsFilter(val amount: Double) extends TransactionsFilter {
   def filter(transactions: List[Transaction]): List[Transaction] =
-    transactions.filter(_.amount > threshold)
+    transactions.filter(_.amount > amount)
 }
 
 class CategoryTransactionsFilter(val cat: String) extends TransactionsFilter {
